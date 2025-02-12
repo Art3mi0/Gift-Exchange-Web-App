@@ -1,0 +1,17 @@
+Extensions:
+    Python
+    Pylance
+    Python Debugger
+    Live sass compiler
+    "Sass (.sass only)" should see this from just typing sass at the top
+
+Everytime you want to work on project:
+    (In cmd, not powershell)
+    Start environment:
+        .\env\Scripts\activate
+    Leave environment (ALSO do this when done working on project):
+        deactivate
+
+Python files in the outer most directory
+HTML (routes) in templates
+CSS and JS in static

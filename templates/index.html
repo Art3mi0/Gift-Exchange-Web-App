@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Da Fridge</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1>Christmas!!!</h1>
+    <h2>Mr. Ligma</h2>
+    {% if things | length < 1 %}
+    <h3>This list is empty :/</h3>
+    {% else %}
+    <table>
+        <tr>
+            <th>Things</th>
+            <th>Price</th>
+            <th>Link</th>
+            <th>Actions</th>
+        </tr>
+        {% for thing in things %}
+        <tr>
+            <td>{{thing.thing}}</td>
+            <td>{{thing.price}}</td>
+            <td>{{thing.link}}</td>
+            <td>
+                <a href="/delete/{{thing.id}}">Delete</a>
+                <a href="/update/{{thing.id}}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content" />
+        <input type="submit" value="Add Item" id="btn_add" />
+    </form>
+{% endblock %}
