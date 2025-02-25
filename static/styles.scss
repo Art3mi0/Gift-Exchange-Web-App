@@ -78,3 +78,68 @@ body {
         }
     }
 }
+
+.testContent {
+    a {
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 5px;
+        margin-top: 80px;
+        border-radius: 20px;
+        background-color: #e8f3f2;
+        color: #420812;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+
+        &:hover{
+            background-color: #137054;
+        }
+    }
+
+}
+
+.casinoContent {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    h1{
+        position: relative;    
+    }
+    
+    a {
+        position: absolute;
+        left: 0px;
+        font-size: 12px;
+        padding: 8px 8px;
+        border-radius: 12px;
+        background-color: #e8f3f2;
+        color: #420812;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+
+        &:hover{
+            background-color: #137054;
+        }
+    }
+
+    h1 {
+        color: #137054;
+    }
+
+    h2 {
+        color: #137054;
+    }
+
+    input[type=button] {
+        width: 52px;
+        margin-right: 20px;
+        padding: 8px;
+        font-size: 16px;
+    }
+    
+}

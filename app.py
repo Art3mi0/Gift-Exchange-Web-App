@@ -73,6 +73,13 @@ def update(id:int):
             return f"ERROR:{e}"
     else:
         return render_template('update.html',thing=thing)
+    
+# Casino Page
+@app.route("/casino/", methods=["GET"])
+def casino():
+    # Add data
+    if request.method == "GET":
+        return render_template('casino.html')
 
 
 if __name__ in "__main__":

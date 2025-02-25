@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="/static/test.js"></script>
+
+<title>Da Casino</title>
+
+{% endblock %}
+
+
+{% block body %}
+<div class="casinoContent">
+
+    <h1>Da Casino<a href="/">Go Back</a></h1>
+
+    <h2>(No Cashouts)</h2>
+
+    <tr>
+        <button type="button" onclick="testFunction()">Test</button>
+        <input type="button" onclick="testFunction2(id)" value="Left" id="btn_left" />
+        <input type="button" onclick="testFunction2(id)" value="Right" id="btn_right" />
+        <p id="testText">Words</p>
+    </tr>
+
+{% endblock %}
