@@ -1,3 +1,8 @@
+Create virtual environment:
+    in terminal, enter "python -m venv env"
+    Should make new folder, give it time till new terminal line appears
+    run ".\env\Scripts\activate", then do pip install -r requirements.txt
+
 Extensions:
     Python
     Pylance
