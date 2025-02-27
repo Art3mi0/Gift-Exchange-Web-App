@@ -21,6 +21,28 @@ class MyThing(db.Model):
 
     def __repr__(self) -> str:
         return f"Task {self.id}"
+    
+class User(db.Model):
+    id = db.Column("UserID", db.Integer, primary_key=True)
+    name = db.Column("UserName", db.String(50), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
+    shirt = db.Column(db.String(100))
+    pants = db.Column(db.Integer)
+    shoes = db.Column(db.Integer)
+
+    def __init__(self, name, password):
+        self.name = name
+        self.password = password
+
+class Event(db.Model):
+    id = db.Column("EventID", db.Integer, primary_key=True)
+    userID = db.Column("UserID", db.Integer, foreign_key=True)
+    name = db.Column("EventName", db.String(50), nullable=False)
+    date = db.Column(db.String(30), nullable=False)
+
+    def __init__(self, name, date):
+        self.name = name
+        self.dare = date
 
 
 # For deployment. When deployed, will make a fresh db at the start 
