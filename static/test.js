@@ -3,6 +3,9 @@ function testFunction() {
     document.getElementById("testText").innerHTML = "NANI";
 }
 
+
+let rrTable = [0, 0, 1, 0, 0, 0];
+let count = 0;
 /*
 Test function for changing button properties.
 Cares about two buttons. The left and right button.
@@ -17,18 +20,53 @@ function testFunction2(id) {
     let defColor = lButton.style.backgroundColor;
 
     if (lButton.id == id){
+        if (rrTable[count] == 1){
+            document.getElementById("p1Text").style.color="red";
+            document.getElementById("rrOutput").innerText="P1 DEAD";
+        } else{
+            document.getElementById("rrOutput").innerText="P1 safe... NEXT";
+        }
         rButton.disabled = false;
         rButton.style.backgroundColor = lButton.style.backgroundColor;
         lButton.disabled = true;
         lButton.style.backgroundColor = disColor;
     } else{
+        if (rrTable[count] == 1){
+            document.getElementById("p2Text").style.color="red";
+            document.getElementById("rrOutput").innerText="P2 DEAD";
+        } else{
+            document.getElementById("rrOutput").innerText="P2 safe... NEXT";
+        }
         lButton.disabled = false;
         lButton.style.backgroundColor = rButton.style.backgroundColor;
         rButton.disabled = true;
         rButton.style.backgroundColor = disColor;
     }
+    count = count + 1;
     //button.style.backgroundColor ="rgb(0,255,0)";
     document.getElementById(this.id).value = "???";
+}
+
+function resetFunction(){
+    shuffleArray(rrTable);
+    document.getElementById("p1Text").style.color="black";
+    document.getElementById("p2Text").style.color="black";
+    document.getElementById("rrOutput").innerText="Press button to start";
+    count = 0;
+    document.getElementById("btn_left").disabled=false;
+    document.getElementById("btn_right").disabled=false;
+    document.getElementById("btn_right").style.backgroundColor="white";
+    document.getElementById("btn_left").style.backgroundColor="white";
+}
+
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+    for (var i = array.length - 1; i >= 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
 
 /*
