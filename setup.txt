@@ -2,6 +2,8 @@ Create virtual environment:
     in terminal, enter "python -m venv env"
     Should make new folder, give it time till new terminal line appears
     run ".\env\Scripts\activate", then do pip install -r requirements.txt
+    ctr+shift+p to open vs code search and type python: select interpreter
+    The env in this folder should appear. Choose that one
 
 Extensions:
     Python
@@ -9,6 +11,7 @@ Extensions:
     Python Debugger
     Live sass compiler
     "Sass (.sass only)" should see this from just typing sass at the top
+    SQLite Viewer
 
 Everytime you want to work on project:
     (In cmd, not powershell)
@@ -18,5 +21,13 @@ Everytime you want to work on project:
         deactivate
 
 Python files in the outer most directory
+    app.py has routes
+    extension.py essentially initializes app and db for other files to use to help reduce
+        amount of code on each file
+    fillDB.py has methods for filling db with dummy data using python. I believe this should
+        be updated using a method that uses sql, but I currently do not know how. It currently works
+    models.py has the db models 
 HTML (routes) in templates
 CSS and JS in static
+    styles.scss handles the css. It is easier to work with, and creates corresponding css files
+    Can create other scss files if styles gets too large. Just make sure to configure html accordingly

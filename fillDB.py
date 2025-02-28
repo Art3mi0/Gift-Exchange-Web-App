@@ -1,4 +1,5 @@
-from app import db, User
+from extension import db
+from models import *
 
 def popDB(db):
     test = User(name='test', password='test')

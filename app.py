@@ -3,72 +3,9 @@ from flask import Flask, render_template, redirect, request
 from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from extension import db, app
 import fillDB
-
-# My App
-app = Flask(__name__)
-Scss(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-# For deployment. Makes it so users get their own database.
-# app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False
-db = SQLAlchemy(app)
-
-
-# A database model
-class MyThing(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    thing = db.Column(db.String(50), nullable=False)
-    price = db.Column(db.Double(7, 2))
-    link = db.Column(db.String(100))
-
-    def __repr__(self) -> str:
-        return f"Task {self.id}"
-    
-class User(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(30), nullable=False)
-    shirt = db.Column(db.String(100))
-    pants = db.Column(db.Integer)
-    shoes = db.Column(db.Integer)
-
-    def __init__(self, name, password):
-        self.name = name
-        self.password = password
-
-class Event(db.Model):
-    event_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(User.user_id))
-    name = db.Column(db.String(50), nullable=False)
-    date = db.Column(db.String(30), nullable=False)
-    #date = db.Column(db.Date, nullable=False)
-
-    def __init__(self, name, date):
-        self.name = name
-        self.dare = date
-
-class Shared(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey(User.user_id), primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey(Event.event_id), primary_key=True)
-
-class List(db.Model):
-    list_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(User.user_id))
-    event_id = db.Column(db.Integer, db.ForeignKey(Event.event_id))
-
-class Item(db.Model):
-    item_id = db.Column(db.Integer, primary_key=True)
-    list_id = db.Column(db.Integer, db.ForeignKey(List.list_id))
-    name = db.Column(db.String(50), nullable=False)
-    price = db.Column(db.Integer)
-    link = db.Column(db.String(50))
-
-    def __init__(self, name):
-        self.name = name
-
-# For deployment. When deployed, will make a fresh db at the start 
-# with app.app_context():
-#     db.create_all()
+from models import *
 
 
 # Homepage
@@ -116,10 +53,10 @@ def update(id:int):
             return f"ERROR:{e}"
     else:
         return render_template('update.html',thing=thing)
-    
-@app.route("/login")
-def login():
-    return render_template("login.html")
+'''
+All routes above are examples for reference. They will be deleted later as the project
+gets closer to being complete
+'''
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
@@ -135,12 +72,14 @@ def admin():
             return render_template("admin.html", flag=user)
     return render_template("admin.html", flag="True")
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+
 
 if __name__ in "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
-
-# For deployment. Different main and db creation moved elsewhere.
-# if __name__ in "__main__":
-#     app.run(debug=True)
