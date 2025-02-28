@@ -51,11 +51,16 @@ body {
   border-color: #54A7A2;
   color: #D81334;
 }
-.content #btn_add {
+.content #btn_add, .content #btn_populate {
   background-color: #54A7A2;
   color: #D81334;
   cursor: pointer;
 }
-.content #btn_add:hover {
+.content #btn_add:hover, .content #btn_populate:hover {
   background-color: #137054;
+}
+.content #btn_add:disabled, .content #btn_populate:disabled {
+  background-color: #d0eeeb;
+  color: #eb8c9b;
+  cursor: default;
 }/*# sourceMappingURL=styles.css.map */

@@ -68,13 +68,18 @@ body {
         color: #D81334;
     }
 
-    #btn_add {
+    #btn_add, #btn_populate {
         background-color: #54A7A2;
         color: #D81334;
         cursor: pointer;
 
         &:hover{
             background-color: #137054;
+        }
+        &:disabled{
+            background-color: #d0eeeb;
+            color: #eb8c9b;
+            cursor:default;
         }
     }
 }
