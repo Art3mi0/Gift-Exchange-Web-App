@@ -8,3 +8,4 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 # For deployment. Makes it so users get their own database.
 # app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False
 db = SQLAlchemy(app)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'

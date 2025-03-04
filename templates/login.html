@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+<script src="/static/login.js"></script>
 <title>Login</title>
 {% endblock %}
 
@@ -8,7 +9,20 @@
 {% block body %}
 <div class="content">
     <h1>Login</h1>
-    <h2>Drop down of users</h2>
-    <h2>password field</h2>
-    <p>If your name does not appear on the dropdown, click here</p>
+    {% if users | length < 1 %}
+    <h3>There are no users :/</h3>
+    <h3>sign up here!</h3>
+    {% else %}
+
+        <select name="users" id="users">
+        {% for user in users %}
+        <option value="{{user.name}}">{{user.name}}</option>
+        {% endfor %}
+        <input type="text" name="password" id="password" placeholder="password" style="color:blue"/>
+        <input type="submit" value="Login" onClick="loginSubmit()"/>
+        <br>
+        <label id="wrongText" style="display:inline-block; text-align:left;width:150px; color:red; visibility:hidden;" >Incorrect Password!</label>
+
+        <p>If your name does not appear on the dropdown, click here to sign up</p>
+    {% endif %}
 {% endblock %}

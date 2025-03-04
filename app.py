@@ -1,5 +1,5 @@
 # Imports
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, jsonify, session
 from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -72,10 +72,48 @@ def admin():
             return render_template("admin.html", flag=user)
     return render_template("admin.html", flag="True")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method  == "POST":
+        data = request.form
+        userVerify = User.query.filter_by(name=data['user'], password=data['password']).one_or_none()
+        if userVerify:
+            return redirect("/home")
+        else:
+            return "No"
+
+    if request.method == "GET":   
+        try:
+            users = User.query.all()
+            return render_template("login.html", users=users)
+        except Exception as e:
+            return f"ERROR:{e}"
+        
     return render_template("login.html")
 
+@app.route("/loginCheck", methods=["POST", "GET"])
+def loginCheck():
+    if request.method == "POST":
+        #data = request.form['password']
+        data = request.form
+        userVerify = User.query.filter_by(name=data["user"], password=data["password"]).first_or_404()
+        if userVerify: 
+            return render_template("home.html")
+        else:
+            session["loggedIn"] = "false"
+            return redirect("/login")
+ 
+    else:
+        data = request.form
+        userVerify = User.query.filter_by(name=data["user"], password=data["password"]).first_or_404()
+        if userVerify: 
+            return render_template("home.html")
+        else:
+            return redirect("/login")
+
+@app.route("/home")
+def home():
+    return render_template("home.html")
 
 
 
