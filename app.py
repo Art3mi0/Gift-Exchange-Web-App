@@ -78,41 +78,64 @@ def login():
         data = request.form
         userVerify = User.query.filter_by(name=data['user'], password=data['password']).one_or_none()
         if userVerify:
+            session['user'] = data['user']
             return redirect("/home")
         else:
             return "No"
 
     if request.method == "GET":   
+        session.pop('user', None)
         try:
             users = User.query.all()
             return render_template("login.html", users=users)
         except Exception as e:
             return f"ERROR:{e}"
         
-    return render_template("login.html")
 
-@app.route("/loginCheck", methods=["POST", "GET"])
-def loginCheck():
-    if request.method == "POST":
-        #data = request.form['password']
-        data = request.form
-        userVerify = User.query.filter_by(name=data["user"], password=data["password"]).first_or_404()
-        if userVerify: 
-            return render_template("home.html")
-        else:
-            session["loggedIn"] = "false"
-            return redirect("/login")
- 
-    else:
-        data = request.form
-        userVerify = User.query.filter_by(name=data["user"], password=data["password"]).first_or_404()
-        if userVerify: 
-            return render_template("home.html")
-        else:
-            return redirect("/login")
+'''
+I don't understand what I was doing wrong before, but this works now. I am not going to use
+this method, howver. I was planning on making this its own function, but I think it's fine
+to keep in the main login function.
+'''
+# @app.route("/loginCheck", methods=["POST"])
+# def loginCheck():
+#     if request.method  == "POST":
+#         data = request.form
+#         userVerify = User.query.filter_by(name=data['user'], password=data['password']).one_or_none()
+#         if userVerify:
+#             return redirect("/home")
+#         else:
+#             return "No"
 
-@app.route("/home")
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method  == "POST":
+        data = request.form
+        userVerify = User.query.filter_by(name=data['user']).one_or_none()
+        if userVerify:
+            return "No"
+        else:
+            newUser = User(name=data['user'], password=data['password'])
+            db.session.add(newUser)
+            db.session.commit()
+            session['user'] = data['user']
+            return redirect("/home")
+
+    session.pop('user', None)
+    return render_template("signup.html")
+
+@app.route("/home", methods=["GET", "POST"])
 def home():
+    if request.method == "POST":
+        session.pop('user', None)
+        return redirect("/login")
+    
+    if request.method == "GET":
+        if session.get('user'):
+            return render_template("home.html", user=session['user'])
+        else:
+            return redirect("/login")
+
     return render_template("home.html")
 
 

@@ -11,7 +11,7 @@
     <h1>Login</h1>
     {% if users | length < 1 %}
     <h3>There are no users :/</h3>
-    <h3>sign up here!</h3>
+    <h3>sign up <a href="/signup">here</a>!</h3>
     {% else %}
 
         <select name="users" id="users">
@@ -23,6 +23,6 @@
         <br>
         <label id="wrongText" style="display:inline-block; text-align:left;width:150px; color:red; visibility:hidden;" >Incorrect Password!</label>
 
-        <p>If your name does not appear on the dropdown, click here to sign up</p>
+        <p>If your name does not appear on the dropdown, click <a href="/signup">here</a> to sign up</p>
     {% endif %}
 {% endblock %}

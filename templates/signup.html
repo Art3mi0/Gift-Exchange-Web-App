@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="/static/signup.js"></script>
+<title>Signup</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1>Signup</h1>
+    <h3>Enter a unique username and password</h3>
+
+    <input type="text" name="username" id="username" placeholder="username" style="color:blue"/>
+    <input type="text" name="password" id="password" placeholder="password" style="color:blue"/>
+    <input type="submit" value="Signup" onClick="signupSubmit()"/>
+    <br>
+    <label id="wrongText" style="display:inline-block; text-align:left;width:150px; color:red; visibility:hidden;" >Username already taken!</label>
+
+    <p>If you already have an account, click <a href="/login">here</a> to log up</p>
+{% endblock %}
