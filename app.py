@@ -127,16 +127,28 @@ def signup():
 @app.route("/home", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        session.pop('user', None)
-        return redirect("/login")
+        user = User.query.filter_by(name=session['user']).one_or_none()
+        data = request.form
+        newEvent = Event(name=data['eventName'], date=data['date'], user_id=user.user_id)
+        db.session.add(newEvent)
+        db.session.commit()
+        return redirect("/home")
     
     if request.method == "GET":
         if session.get('user'):
-            return render_template("home.html", user=session['user'])
+            user = User.query.filter_by(name=session['user']).one_or_none()
+            events = Event.query.filter_by(user_id=user.user_id).all()
+            return render_template("home.html", user=session['user'], events=events)
         else:
             return redirect("/login")
 
     return render_template("home.html")
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    if request.method == "POST":
+        session.pop('user', None)
+        return redirect("/login")
 
 
 

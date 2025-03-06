@@ -29,9 +29,10 @@ class Event(db.Model):
     date = db.Column(db.String(30), nullable=False)
     #date = db.Column(db.Date, nullable=False)
 
-    def __init__(self, name, date):
+    def __init__(self, name, date, user_id):
         self.name = name
-        self.dare = date
+        self.date = date
+        self.user_id = user_id
 
 class Shared(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.user_id), primary_key=True)
