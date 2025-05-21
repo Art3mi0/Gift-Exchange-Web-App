@@ -144,6 +144,31 @@ def home():
 
     return render_template("home.html")
 
+@app.route("/homeModifyEvent", methods=["GET", "POST"])
+def homeModifyEvent():
+    if request.method == "POST":
+        data = request.form
+        if data['modifyType'] == "delete":
+            delete_event = Event.query.get_or_404(data['eventID'])
+            try:
+                db.session.delete(delete_event)
+                db.session.commit()
+                return redirect("/home")
+            except Exception as e:
+                return f"ERROR:{e}"
+            
+        elif data['modifyType'] == "update":
+            update_event = Event.query.get_or_404(data['eventID'])
+            try:
+                update_event.name = data['eventName']
+                update_event.date = data['date']
+                db.session.commit()
+                return redirect("/home")
+            except Exception as e:
+                return f"ERROR:{e}"
+        else:
+            return redirect("/home")
+
 @app.route("/logout", methods=["POST"])
 def logout():
     if request.method == "POST":

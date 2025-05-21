@@ -75,3 +75,57 @@ function checkDate(date) {
     return false;
 
 }
+
+function deleteEvent(id) {
+    let data = new FormData();
+    data.append("eventID", id);
+    data.append("modifyType", "delete");
+
+    fetch("/homeModifyEvent", {
+        "method": "POST",
+        "body": data,
+    }).then(
+        response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            }
+        }
+    )
+}
+
+function editEvent(id){
+    const eventId = id.toString();
+    const eventNameEdit = document.getElementById(eventId.concat("nameEdit")); 
+    const eventDateEdit = document.getElementById(eventId.concat("dateEdit")); 
+    const eventSaveEdit = document.getElementById(eventId.concat("saveEdit")); 
+
+    eventNameEdit.hidden = !eventNameEdit.hidden.valueOf();
+    eventDateEdit.hidden = !eventDateEdit.hidden.valueOf();
+    eventSaveEdit.hidden = !eventSaveEdit.hidden.valueOf();
+    //eventNameEdit.style.visibility = "visible";
+    //eventDateEdit.style.visibility = "visible";
+}
+
+function saveEdit(id){
+    const eventId = id.toString();
+    const eventNameEdit = document.getElementById(eventId.concat("nameEdit")); 
+    const eventDateEdit = document.getElementById(eventId.concat("dateEdit")); 
+
+    let data = new FormData();
+    data.append("eventID", id);
+    data.append("eventName", eventNameEdit.value);
+    data.append("date", eventDateEdit.value);
+    data.append("modifyType", "update");
+
+    fetch("/homeModifyEvent", {
+        "method": "POST",
+        "body": data,
+    }).then(
+        response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            }
+        }
+    )
+
+}

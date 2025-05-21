@@ -23,16 +23,20 @@
         <tr>
             <th>Event</th>
             <th>Date</th>
-            <th>Actions</th>
+            <th style="width: 390px">Actions</th>
         </tr>
         {% for event in events %}
         <tr>
-            <td>{{event.name}}</td>
-            <td>{{event.date}}</td>
+            <td class="mid">{{event.name}}</td>
+            <td class="mid">{{event.date}}</td>
             <td>
-                <input type="submit" value="Delete" onClick="deleteEvent()"/>
-                <input type="submit" value="Edit" onClick="editEvent()"/>
+                <input type="submit" value="Delete" onClick="deleteEvent({{event.event_id}})"/>
+                <input type="submit" value="Edit" onClick="editEvent({{event.event_id}})"/>
                 <input type="submit" value="View" onClick="viewEvent()"/>
+                <br>
+                <input type="text" id="{{event.event_id}}nameEdit" value="{{event.name}}" placeholder="Event Name" style="color:blue" hidden="True" size="15"/>
+                <input type="text" id="{{event.event_id}}dateEdit" value="{{event.date}}" placeholder="Date: 01-23-2025" style="color:blue" hidden="True" size="8"/>
+                <input type="submit" id="{{event.event_id}}saveEdit" value="Save" onClick="saveEdit({{event.event_id}})" hidden="True"/>
             </td>
         </tr>
         {% endfor %}
